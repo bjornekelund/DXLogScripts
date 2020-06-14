@@ -10,10 +10,6 @@ namespace DXLog.net
 {
     public class EqualizeRadio : ScriptClass
     {
-        static readonly bool debug = false;
-        ContestData cdata;
-        FrmMain mainForm;
-
         public void Initialize(FrmMain main) {}
 
         public void Deinitialize() {}
