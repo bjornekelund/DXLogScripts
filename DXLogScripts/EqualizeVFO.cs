@@ -1,8 +1,8 @@
 //INCLUDE_ASSEMBLY System.dll
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
 
-// Script to force radio 2 to frequency of radio 1
-// By Björn Ekelund SM7IUN sm7iun@ssa.se 2019-01-30
+// Script to force radio 1's VFO B to frequency of VFO A
+// By Björn Ekelund SM7IUN sm7iun@ssa.se 2020-06-14
 
 using IOComm;
 

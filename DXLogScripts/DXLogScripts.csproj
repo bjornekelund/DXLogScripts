@@ -35,22 +35,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CWKeyer">
-      <HintPath>D:\DXLog.net\DXLog.net\bin\Release\CWKeyer.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\CWKeyer.dll</HintPath>
     </Reference>
     <Reference Include="DXLComm">
-      <HintPath>D:\DXLog.net\DXLog.net\bin\Release\DXLComm.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLComm.dll</HintPath>
     </Reference>
     <Reference Include="DXLog.net">
-      <HintPath>D:\DXLog.net\DXLog.net\bin\Release\DXLog.net.exe</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLog.net.exe</HintPath>
     </Reference>
     <Reference Include="DXLog.net.COM">
-      <HintPath>D:\DXLog.net\DXLog.net\bin\Release\DXLog.net.COM.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLog.net.COM.dll</HintPath>
+    </Reference>
+    <Reference Include="DXLog.net.DXC">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLog.net.DXC.exe</HintPath>
     </Reference>
     <Reference Include="DXLogDAL">
-      <HintPath>D:\DXLog.net\DXLog.net\bin\Release\DXLogDAL.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLogDAL.dll</HintPath>
     </Reference>
     <Reference Include="IOComm">
-      <HintPath>D:\DXLog.net\DXLog.net\bin\Release\IOComm.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\IOComm.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
