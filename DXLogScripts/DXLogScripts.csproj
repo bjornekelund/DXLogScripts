@@ -70,6 +70,7 @@
   <ItemGroup>
     <Compile Include="EqualizeVFO.cs" />
     <Compile Include="ICOM_Filter.cs" />
+    <Compile Include="ICOM_Speedsynch.cs" />
     <Compile Include="KeyPTT.cs" />
     <Compile Include="KeyPTTtoggle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
