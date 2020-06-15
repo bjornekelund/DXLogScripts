@@ -3,7 +3,7 @@
 //INCLUDE_ASSEMBLY CWKeyer.dll
 
 // ICOM Synchronization of built-in keyer with DXLog.net.
-// Event driven, not mapped to any key.
+// Since it is event driven it runs automatically and is not mapped to any key.
 // Works for up to two radios in all operating scenarios including SO2V. 
 // By Björn Ekelund SM7IUN sm7iun@ssa.se 2019-01-31
 
@@ -20,7 +20,7 @@ namespace DXLog.net
         ContestData cdata;
         int lastFocus;
 
-        static byte[] IcomSetSpeed = new byte[4] { 0x14, 0x0C, 0x00, 0x00 };
+        readonly byte[] IcomSetSpeed = new byte[4] { 0x14, 0x0C, 0x00, 0x00 };
 
 	    public void Initialize(FrmMain main)
 	    {

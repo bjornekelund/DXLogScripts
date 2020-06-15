@@ -4,7 +4,7 @@
 
 // Script to force other VFO of radio to same frequency as currently selected VFO 
 // Works for all supported operating techniques
-// By Björn Ekelund SM7IUN sm7iun@ssa.se 2019-01-30
+// By Björn Ekelund SM7IUN sm7iun@ssa.se 2020-06-15
 
 using IOComm;
 
