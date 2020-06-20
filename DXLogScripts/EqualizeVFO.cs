@@ -13,7 +13,10 @@ namespace DXLog.net
 {
     public class EqualizeRadio : ScriptClass
     {
-        public void Initialize(FrmMain main) {}
+        public void Initialize(FrmMain main) 
+        {
+            Main(main, main.ContestDataProvider, main.COMMainProvider);
+        }
 
         public void Deinitialize() {}
 
@@ -41,7 +44,7 @@ namespace DXLog.net
                     main.SetCATMode(focusedradio, othervfo, mode, false);
                     break;
                 default:
-                    break:
+                    break;
             }
         }
     }
