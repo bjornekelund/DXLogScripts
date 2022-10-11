@@ -24,8 +24,7 @@ namespace DXLog.net
 			int radio = cdata.FocusedRadio;
             CATCommon radioobject = radio == 1 ? main.COMMainProvider._radio1Object : main.COMMainProvider._radio2Object;
 			string HOSTcmd = string.Empty;
-            string radiotype = CATCommon .RadioID;
-            string radiotype = "abc";
+            string radiotype = CATCommon.RadioID;
 
             if (radioobject != null)
             {
