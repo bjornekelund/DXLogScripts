@@ -22,10 +22,21 @@ namespace DXLog.net
 
         // Executes at macro invocation
         public void Main(FrmMain main, ContestData cdata, COMMain comMain)
-        {
-			int radio = cdata.FocusedRadio;
-            CATCommon radioobject = radio == 1 ? main.COMMainProvider._radio1Object : main.COMMainProvider._radio2Object;
-			string HOSTcmd = string.Empty;
+        {			
+            int radio;
+
+            if (cdata.OPTechnique == ContestData.Technique.SO1R || cdata.OPTechnique == ContestData.Technique.SO2V)
+            {
+                radio = 1;
+            }
+            else
+            {
+                radio = cdata.FocusedRadio;
+            }
+
+            CATCommon radioobject = (radio == 1) ? main.COMMainProvider._radio1Object : main.COMMainProvider._radio2Object;
+
+            string HOSTcmd = string.Empty;
             string radiotype = CATCommon.RadioID;
 
             if (radioobject != null)
