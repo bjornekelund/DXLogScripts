@@ -1,10 +1,12 @@
 //INCLUDE_ASSEMBLY System.dll
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
+//INCLUDE_ASSEMBLY IOComm.dll
 
 // Elecraft K3/K4 RX antenna toggling.
 // By Bob Wilson N6TV n6tv@arrl.net 2 October 2022 20:53 UTC
 
 using System;
+using IOComm;
 
 namespace DXLog.net
 {

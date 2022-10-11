@@ -52,8 +52,20 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CWKeyer">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\CWKeyer.dll</HintPath>
+    </Reference>
+    <Reference Include="DXLComm">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLComm.dll</HintPath>
+    </Reference>
     <Reference Include="DXLog.net">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLog.net.exe</HintPath>
+    </Reference>
+    <Reference Include="DXLog.net.COM">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLog.net.COM.dll</HintPath>
+    </Reference>
+    <Reference Include="DXLogDAL">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLogDAL.dll</HintPath>
     </Reference>
     <Reference Include="IOComm">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\IOComm.dll</HintPath>
@@ -69,14 +81,12 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="WindowsBase" />
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EqualizeVFO.cs" />
     <Compile Include="ICOM_Filter.cs" />
     <Compile Include="ICOM_Speedsynch.cs" />
+    <Compile Include="K34_Ant.cs" />
     <Compile Include="KeyPTT.cs" />
     <Compile Include="KeyPTTtoggle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
