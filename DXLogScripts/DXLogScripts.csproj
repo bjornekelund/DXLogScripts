@@ -33,21 +33,27 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CWKeyer">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\CWKeyer.dll</HintPath>
-    </Reference>
-    <Reference Include="DXLComm">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLComm.dll</HintPath>
-    </Reference>
     <Reference Include="DXLog.net">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLog.net.exe</HintPath>
-    </Reference>
-    <Reference Include="DXLog.net.COM">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLog.net.COM.dll</HintPath>
-    </Reference>
-    <Reference Include="DXLogDAL">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLogDAL.dll</HintPath>
     </Reference>
     <Reference Include="IOComm">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\IOComm.dll</HintPath>
