@@ -28,12 +28,12 @@ namespace DXLog.net
             if (cdata.OPTechnique == ContestData.Technique.SO1R || cdata.OPTechnique == ContestData.Technique.SO2V)
             {
                 radio = 1;
-                radioobject = main.COMMainProvider._radio1Object;
+                radioobject = comMain._radio1Object;
             }
             else
             {
                 radio = cdata.FocusedRadio;
-                radioobject = radio == 1 ? main.COMMainProvider._radio1Object : main.COMMainProvider._radio2Object;
+                radioobject = radio == 1 ? comMain._radio1Object : comMain._radio2Object;
             }
 
             string HOSTcmd = string.Empty;
