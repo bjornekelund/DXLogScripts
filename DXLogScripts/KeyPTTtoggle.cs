@@ -2,7 +2,7 @@
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
 
 // Keyboard PTT experiment by Björn Ekelund SM7IUN sm7iun@ssa.se 
-// 2020-06-10
+// Updated 2022-10-13
 
 using IOComm;
 
@@ -22,14 +22,14 @@ namespace DXLog.net
             if (!Sending)
             {
                 Sending = true;
-                main.HandleTXRequestChange(Sending);
+                main.HandleTXRequestChange(Sending, false, 0);
                 main.SetMainStatusText(string.Format("Transmitting on radio {0}.", cdata.TXOnRadio));
                 main.COMMainProvider.SetPTTOn(cdata.TXOnRadio, false);
             }
             else
             {
                 Sending = false;
-                main.HandleTXRequestChange(Sending);
+                main.HandleTXRequestChange(Sending, false, 0);
                 main.SetMainStatusText(string.Format("PTT off on radio {0}", cdata.TXOnRadio));
                 main.COMMainProvider.SetPTTOff(cdata.FocusedRadio);
             }

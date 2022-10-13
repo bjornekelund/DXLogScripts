@@ -1,6 +1,5 @@
 //INCLUDE_ASSEMBLY System.dll
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
-//INCLUDE_ASSEMBLY CWKeyer.dll
 
 // ICOM Synchronization of built-in keyer with DXLog.net.
 // Since it is event driven it runs automatically and is not mapped to any key.

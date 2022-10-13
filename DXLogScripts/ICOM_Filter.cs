@@ -4,6 +4,7 @@
 // ICOM 7610 Filter cycling. Typically mapped to Alt-' for 
 // muscle memory compatibility with N1MM. 
 // By Björn Ekelund SM7IUN sm7iun@ssa.se 2019-07-08
+// Update 2022-10-13
 
 using System;
 using IOComm;
@@ -88,11 +89,13 @@ namespace DXLog.net
             radio.SendCustomCommand(IcomSetModeFilter);
 
             if (Debug)
-                main.SetMainStatusText(String.Format("IcomFilter: VFO {0} changed to FIL{1}. CI-V command: [{2}]. ",
-                    (vfo == 0) ? "A" : "B", filter, BitConverter.ToString(IcomSetModeFilter)));
+            {
+                main.SetMainStatusText(String.Format("IcomFilter: VFO {0} changed to FIL{1}. CI-V command: [{2}]. ", (vfo == 0) ? "A" : "B", filter, BitConverter.ToString(IcomSetModeFilter)));
+            }
             else
-                main.SetMainStatusText(String.Format("VFO {0} changed to FIL{1}.",
-                    (vfo == 0) ? "A" : "B", filter));
+            {
+                main.SetMainStatusText(String.Format("VFO {0} changed to FIL{1}.", (vfo == 0) ? "A" : "B", filter));
+            }
         }
     }
 }
