@@ -2,13 +2,13 @@
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
 
 // Elecraft K3/K4 RX antenna toggling.
-// By Bob Wilson N6TV n6tv@arrl.net 2 October 2022 20:53 UTC
+// By SM7IUN & K1XM 2022-10-13
 
 using IOComm;
 
 namespace DXLog.net
 {
-    public class K4RxAnt : ScriptClass
+    public class K34RxAnt : ScriptClass
     {
         readonly bool StatusText = true;
 
