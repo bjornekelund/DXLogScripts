@@ -1,7 +1,7 @@
 //INCLUDE_ASSEMBLY System.dll
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
 
-// Keyboard PTT experiment by Björn Ekelund SM7IUN sm7iun@ssa.se 
+// Keyboard PTT experiment by Bjorn Ekelund SM7IUN sm7iun@ssa.se 
 // 2020-06-02
 
 using System.Windows.Forms;

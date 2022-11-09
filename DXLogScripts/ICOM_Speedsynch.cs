@@ -4,7 +4,7 @@
 // ICOM Synchronization of built-in keyer with DXLog.net.
 // Since it is event driven it runs automatically and is not mapped to any key.
 // Works for up to two radios in all operating scenarios including SO2V. 
-// By Björn Ekelund SM7IUN sm7iun@ssa.se 2019-01-31
+// By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2019-01-31
 
 using System;
 using CWKeyer;

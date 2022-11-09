@@ -2,13 +2,13 @@
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
 
 // Experimental antenna cycling script for Yaesu FTDX101D. 
-// By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2020-04-18
+// By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2022-11-09
 
 using IOComm;
 
 namespace DXLog.net
 {
-    public class YaesuAntenna : ScriptClass
+    public class YaesuAntenna2 : ScriptClass
     {
         int currentAntenna;
 
@@ -23,12 +23,12 @@ namespace DXLog.net
         // Executes as DXLog.net close down
         public void Deinitialize() { }
 
-        // Step through Antennas, Main is mapped to a key, typically not a shifted 
-        // key to allow rapid multiple presses
-        // The value of currentAntenna steps through 1,2,3,1,2,3,1...
+        // Toggle between main and receive antenna.
+        // Main is mapped to a key, typically not a shifted key to allow rapid multiple presses
+        // The value of currentAntenna steps through 1,3,1,3,1...
         public void Main(FrmMain main, ContestData cdata, COMMain comMain)
         {
-            currentAntenna = (currentAntenna % 3) + 1;
+            currentAntenna = currentAntenna != 1 ? 1 : 3;
             SetYaesuAntenna(currentAntenna, main);
         }
 

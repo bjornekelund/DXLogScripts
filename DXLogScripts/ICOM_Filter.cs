@@ -3,7 +3,7 @@
 
 // ICOM 7610 Filter cycling. Typically mapped to Alt-' for 
 // muscle memory compatibility with N1MM. 
-// By Björn Ekelund SM7IUN sm7iun@ssa.se 2019-07-08
+// By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2019-07-08
 // Update 2022-10-13
 
 using System;

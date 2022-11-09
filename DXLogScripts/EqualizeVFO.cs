@@ -4,7 +4,7 @@
 // Script to force other VFO of radio to same mode and frequency as currently selected VFO 
 // Works for all supported operating techniques
 // Does not try to enforce mode if not Phone or CW.
-// By Björn Ekelund SM7IUN sm7iun@ssa.se 2020-06-15
+// By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2020-06-15
 // Updated 2022-10-13
 // Implemented in DXLog as Ctrl-F4
 
