@@ -10,14 +10,14 @@ namespace DXLog.net
 {
     public class YaesuAntenna2 : ScriptClass
     {
-        int currentAntenna;
+        bool RxAntenna;
 
         // Executes at DXLog.net start 
         public void Initialize(FrmMain main)
         {
             // Choose and set the first antenna at start up
-            currentAntenna = 1;
-            SetYaesuAntenna(currentAntenna, main);
+            RxAntenna = false;
+            SetAntenna3(RxAntenna, main);
         }
 
         // Executes as DXLog.net close down
@@ -28,11 +28,11 @@ namespace DXLog.net
         // The value of currentAntenna steps through 1,3,1,3,1...
         public void Main(FrmMain main, ContestData cdata, COMMain comMain)
         {
-            currentAntenna = currentAntenna != 1 ? 1 : 3;
-            SetYaesuAntenna(currentAntenna, main);
+            RxAntenna = !RxAntenna;
+            SetAntenna3(RxAntenna, main);
         }
 
-        private void SetYaesuAntenna(int antenna, FrmMain main)
+        private void SetAntenna3(bool rxant, FrmMain main)
         {
             bool modeIsSO2V = main.ContestDataProvider.OPTechnique == ContestData.Technique.SO2V;
             int focusedRadio = main.ContestDataProvider.FocusedRadio;
@@ -43,11 +43,12 @@ namespace DXLog.net
             // Act on currently selected VFO unless SO2V where the selected "radio" defines which VFO
             string avfo = ((focusedRadio == 2) && modeIsSO2V) ? "B" : main.ContestDataProvider.FocusedRadioActiveVFO;
             string vfo = avfo == "A" ? "0" : "1";
+            string catcommand = "AN" + vfo + (rxant ? "3" : "1") + ";";
 
             if (main.COMMainProvider.RadioObject(physicalRadio) != null)
             {
-                main.COMMainProvider.RadioObject(physicalRadio).SendCustomCommand("AN" + vfo + antenna.ToString() + ";");
-                main.SetMainStatusText(string.Format("{0} antenna switched to #{1}.", vfo == "0" ? "Main" : "Sub", currentAntenna));
+                main.COMMainProvider.RadioObject(physicalRadio).SendCustomCommand(catcommand);
+                main.SetMainStatusText(string.Format("{0} antenna switched to #{1}.", vfo == "0" ? "Main" : "Sub", RxAntenna ? 3 : 1));
             }
         }
     }
