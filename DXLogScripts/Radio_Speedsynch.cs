@@ -19,7 +19,7 @@ namespace DXLog.net
         FrmMain mainForm;
         ContestData cdata;
         int lastFocus;
-        int[] lastSpeed = { 0, 0 };
+        int[] lastSpeed;
 
 	    public void Initialize(FrmMain main)
 	    {
@@ -27,6 +27,8 @@ namespace DXLog.net
             cdata = main.ContestDataProvider;
             mainForm = main;
             lastFocus = 1;
+            lastSpeed[0] = 0;
+            lastSpeed[1] = 0;
 
             if (mainForm._cwKeyer != null)
             {
@@ -39,10 +41,10 @@ namespace DXLog.net
 
         public void Deinitialize() { }
 
-        // No key is mapped to this script
+        // This script is event driven so there is no need to map a key to this script 
         public void Main(FrmMain main, ContestData cdata, COMMain comMain) { }
 
-        // Executes every time DXLog.net keyer speed is changed 
+        // Executes every time DXLog.net CW keying speed is changed 
         private void HandleCWSpeedChange(int radioNumber, int newSpeed)
         {
             byte[] IcomSetSpeed = new byte[4] { 0x14, 0x0C, 0x00, 0x00 };
@@ -50,6 +52,8 @@ namespace DXLog.net
             // If SO2V, physical radio is always #1
             bool modeIsSo2V = mainForm.ContestDataProvider.OPTechnique == ContestData.Technique.SO2V;
             int physicalRadio = modeIsSo2V ? 1 : radioNumber;
+
+            // Radio object to control
             CATCommon radioObject = mainForm.COMMainProvider.RadioObject(physicalRadio);
 
             if (radioObject != null)
@@ -75,6 +79,7 @@ namespace DXLog.net
                     }
                     else // Not ICOM
                     {
+                        // KS###; CAT command is common for Yaesu, Kenwood, Elecraft, etc.
                         string speedCommand = "KS" + newSpeed.ToString("000") + ";";
                         radioObject.SendCustomCommand(speedCommand);
                         if (Debug)
@@ -90,6 +95,7 @@ namespace DXLog.net
             }
             else
             {
+                // Radio object is missing
                 mainForm.SetMainStatusText(string.Format("RadioSpeedSynch: Radio {0} is not available!", physicalRadio));
             }
         }
