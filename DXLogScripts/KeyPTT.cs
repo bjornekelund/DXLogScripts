@@ -2,6 +2,7 @@
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
 
 // Keyboard PTT experiment by Bjorn Ekelund SM7IUN sm7iun@ssa.se 
+// Keyboard PTT mapped to Ctrl key.
 // 2020-06-02
 
 using System.Windows.Forms;
@@ -11,41 +12,49 @@ namespace DXLog.net
 {
     public class KeyPTT : ScriptClass
     {
-        ContestData cdata;
-        FrmMain mainForm;
+        FrmMain main;
         bool Sending = false;
 
-        public void Initialize(FrmMain main)
-        {
-            cdata = main.ContestDataProvider;
-            mainForm = main;
+        // PTT key
+        readonly Keys PTTkey = Keys.Oem5;
+        // Controls whether the script displays something in the status bar
+        readonly bool verbose = true;
 
-            mainForm.KeyDown += new KeyEventHandler(HandleKeyPress);
-            mainForm.KeyUp += new KeyEventHandler(HandleKeyRelease);
+        public void Initialize(FrmMain mainForm)
+        {
+            main = mainForm;
+            main.KeyDown += new KeyEventHandler(HandleKeyPress);
+            main.KeyUp += new KeyEventHandler(HandleKeyRelease);
         }
 
         public void Deinitialize() { }
 
-        public void Main(FrmMain main, ContestData cdata, COMMain comMain) { }
+        public void Main(FrmMain m, ContestData c, COMMain a) { }
 
         private void HandleKeyPress(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.ControlKey && !Sending)
+            if (e.KeyCode == PTTkey && !Sending)
             {
-                cdata.TXOnRadio = cdata.FocusedRadio;
-                mainForm.SetMainStatusText(string.Format("Transmitting on radio {0}.", cdata.TXOnRadio));
-                mainForm.COMMainProvider.SetPTTOn(cdata.TXOnRadio, false);
+                main.ContestDataProvider.TXOnRadio = main.ContestDataProvider.FocusedRadio;
+                main.COMMainProvider.SetPTTOn(main.ContestDataProvider.TXOnRadio, false);
                 Sending = true;
+                if (verbose)
+                {
+                    main.SetMainStatusText(string.Format("Transmitting on radio {0}.", main.ContestDataProvider.TXOnRadio));
+                }
             }
         }
 
         private void HandleKeyRelease(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.ControlKey)
+            if (e.KeyCode == PTTkey)
             {
-                mainForm.SetMainStatusText(string.Format(""));
-                mainForm.COMMainProvider.SetPTTOff(cdata.FocusedRadio);
+                main.COMMainProvider.SetPTTOff(main.ContestDataProvider.FocusedRadio);
                 Sending = false;
+                if (verbose)
+                {
+                    main.SetMainStatusText("");
+                }
             }
         }
     }
