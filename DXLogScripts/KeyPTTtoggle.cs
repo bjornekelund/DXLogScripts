@@ -2,13 +2,13 @@
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
 
 // Keyboard PTT experiment by Bjorn Ekelund SM7IUN sm7iun@ssa.se 
-// Updated 2022-10-13
+// Updated 2022-12-04
 
 using IOComm;
 
 namespace DXLog.net
 {
-    public class KeyPTTltoggle : ScriptClass
+    public class KeyPTTtoggle : ScriptClass
     {
         bool Sending = false;
 

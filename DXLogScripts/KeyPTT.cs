@@ -2,8 +2,8 @@
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
 
 // Keyboard PTT experiment by Bjorn Ekelund SM7IUN sm7iun@ssa.se 
-// Keyboard PTT mapped to Ctrl key.
-// 2020-06-02
+// Keyboard PTT mapped to Oem5 key. 
+// Updated 2022-12-04
 
 using System.Windows.Forms;
 using IOComm;
