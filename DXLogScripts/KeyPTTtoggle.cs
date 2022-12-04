@@ -21,6 +21,7 @@ namespace DXLog.net
             cdata.TXOnRadio = cdata.FocusedRadio;
             if (!Sending)
             {
+                main.EscStopKeying();
                 Sending = true;
                 main.HandleTXRequestChange(Sending, false, 0);
                 main.SetMainStatusText(string.Format("Transmitting on radio {0}.", cdata.TXOnRadio));
