@@ -35,6 +35,7 @@ namespace DXLog.net
         {
             if (e.KeyCode == PTTkey && !Sending)
             {
+                main.EscStopKeying();
                 main.ContestDataProvider.TXOnRadio = main.ContestDataProvider.FocusedRadio;
                 main.COMMainProvider.SetPTTOn(main.ContestDataProvider.TXOnRadio, false);
                 Sending = true;
