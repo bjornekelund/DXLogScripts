@@ -1,19 +1,16 @@
 //INCLUDE_ASSEMBLY System.dll
 //INCLUDE_ASSEMBLY System.Windows.Forms.dll
 
-// ICOM CW transmission script
-// Sends same numbers as $SERIAL
+// CW transmission script
 
 using System;
 using IOComm;
 
 namespace DXLog.net
 {
-    public class ICOM_SERIAL : ScriptClass
+    public class CW_SERIAL : ScriptClass
     {
-        readonly bool Debug = false;
-
-        int currentFilter;
+        const bool Debug = true;
 
         // Executes at DXLog.net start 
         public void Initialize(FrmMain main) { }
@@ -39,22 +36,36 @@ namespace DXLog.net
             CATCommon radio = main.COMMainProvider.RadioObject(physicalRadio);
 
             // If there is no radio or if it is not ICOM, do nothing
-            if (radio == null || !radio.IsICOM())
-                return;
-
-            byte [] bytes = new byte[message.Length + 1];
-            bytes[0] = 0x17;
-
-            for (int i = 1; i < message.Length + 1; i++)
+            if (radio != null)
             {
-                bytes[i] = (byte)(message[i]);
-            }
+                if (radio.IsICOM())
+                {
+                    byte[] bytes = new byte[message.Length + 1];
+                    bytes[0] = 0x17;
 
-            radio.SendCustomCommand(bytes);
+                    for (int i = 1; i < message.Length + 1; i++)
+                    {
+                        bytes[i] = (byte)(message[i]);
+                    }
 
-            if (Debug)
-            {
-                main.SetMainStatusText(string.Format("ICOM_SERIAL: CI-V command: [{1}]. ", BitConverter.ToString(bytes)));
+                    radio.SendCustomCommand(bytes);
+
+                    if (Debug)
+                    {
+                        main.SetMainStatusText(string.Format("ICOM_SERIAL: CI-V command: [{1}]. ", BitConverter.ToString(bytes)));
+                    }
+                }
+                else
+                {
+                    string command = "KY" + message + ";";
+                    radio.SendCustomCommand(command);
+
+                    if (Debug)
+                    {
+                        main.SetMainStatusText(string.Format("ICOM_SERIAL: CAT command: [{1}]. ", command));
+                    }
+                }
+
             }
         }
     }
