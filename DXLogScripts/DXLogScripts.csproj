@@ -52,20 +52,14 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CWKeyer">
-      <HintPath>..\..\..\k1xm\DXLog.net\CWKeyer\obj\x86\Debug\CWKeyer.dll</HintPath>
-    </Reference>
-    <Reference Include="DXLComm">
-      <HintPath>..\..\..\k1xm\DXLog.net\DXLComm\obj\Debug\DXLComm.dll</HintPath>
-    </Reference>
     <Reference Include="DXLog.net">
-      <HintPath>..\..\..\k1xm\DXLog.net\DXLog.net\obj\x86\Debug\DXLog.net.exe</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLog.net.exe</HintPath>
     </Reference>
     <Reference Include="DXLogDAL">
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\DXLogDAL.dll</HintPath>
     </Reference>
     <Reference Include="IOComm">
-      <HintPath>..\..\..\k1xm\DXLog.net\IOComm\obj\x86\Debug\IOComm.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DXLog.net\IOComm.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />

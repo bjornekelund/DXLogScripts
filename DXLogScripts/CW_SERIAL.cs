@@ -20,7 +20,10 @@ namespace DXLog.net
 
         public void Main(FrmMain main, ContestData cdata, COMMain comMain)
         {
-            int qsonumber = 23;
+            UCQSO qso = main.panelQSO.GetLogEntryLine(main.ContestDataProvider.FocusedRadio + 9);
+            int qsonumber = qso.ActualQSO.Nr;
+            //int qsonumber = 23;
+
             string message = main.CWAbbrev(qsonumber.ToString("000"));
 
             SendString(message, main);
@@ -34,38 +37,37 @@ namespace DXLog.net
             // Physical radio is #1 in SO2V, otherwised the focused radio
             int physicalRadio = modeIsSO2V ? 1 : focusedRadio;
             CATCommon radio = main.COMMainProvider.RadioObject(physicalRadio);
-
+            //CATCommon radio = null;
             // If there is no radio or if it is not ICOM, do nothing
-            if (radio != null)
+            //if (radio != null && radio.IsICOM())
+            if (false)
             {
-                if (radio.IsICOM())
+                byte[] bytes = new byte[message.Length + 1];
+                bytes[0] = 0x17;
+
+                for (int i = 1; i < message.Length + 1; i++)
                 {
-                    byte[] bytes = new byte[message.Length + 1];
-                    bytes[0] = 0x17;
+                    bytes[i] = (byte)(message[i]);
+                }
 
-                    for (int i = 1; i < message.Length + 1; i++)
-                    {
-                        bytes[i] = (byte)(message[i]);
-                    }
-
+                if (radio != null)
                     radio.SendCustomCommand(bytes);
 
-                    if (Debug)
-                    {
-                        main.SetMainStatusText(string.Format("ICOM_SERIAL: CI-V command: [{1}]. ", BitConverter.ToString(bytes)));
-                    }
-                }
-                else
+                if (Debug)
                 {
-                    string command = "KY" + message + ";";
+                    main.SetMainStatusText(string.Format("ICOM_SERIAL: CI-V command: [{1}]. ", BitConverter.ToString(bytes)));
+                }
+            }
+            else
+            {
+                string command = "KY" + message + ";";
+                if (radio != null)
                     radio.SendCustomCommand(command);
 
-                    if (Debug)
-                    {
-                        main.SetMainStatusText(string.Format("ICOM_SERIAL: CAT command: [{1}]. ", command));
-                    }
+                if (Debug)
+                {
+                    main.SetMainStatusText("ICOM_SERIAL: CAT command: [{" + command + "}]. ");
                 }
-
             }
         }
     }
