@@ -78,6 +78,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EqualizeVFO.cs" />
+    <Compile Include="KY_SERIAL.cs" />
+    <Compile Include="ICOM_SERIAL.cs" />
     <Compile Include="ICOM_Filter.cs" />
     <Compile Include="Radio_Speedsynch.cs" />
     <Compile Include="K34RxAnt.cs" />
