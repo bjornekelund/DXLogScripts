@@ -96,6 +96,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Callsign.cs" />
+    <Compile Include="BandChangeExperiment.cs" />
     <Compile Include="Yaesu_Antenna2.cs" />
     <Compile Include="Yaesu_Antenna.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
