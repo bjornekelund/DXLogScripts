@@ -23,14 +23,14 @@ namespace DXLog.net
             {
                 main.EscStopKeying();
                 Sending = true;
-                main.HandleTXRequestChange(Sending, false, 0);
+                main.HandleTXRequestChange(Sending, false, 0, false);
                 main.SetMainStatusText(string.Format("Transmitting on radio {0}.", cdata.TXOnRadio));
                 main.COMMainProvider.SetPTTOn(cdata.TXOnRadio, false);
             }
             else
             {
                 Sending = false;
-                main.HandleTXRequestChange(Sending, false, 0);
+                main.HandleTXRequestChange(Sending, false, 0, false);
                 main.SetMainStatusText(string.Format("PTT off on radio {0}", cdata.TXOnRadio));
                 main.COMMainProvider.SetPTTOff(cdata.FocusedRadio);
             }
