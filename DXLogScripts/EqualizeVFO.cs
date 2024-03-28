@@ -1,7 +1,4 @@
-//INCLUDE_ASSEMBLY System.dll
-//INCLUDE_ASSEMBLY System.Windows.Forms.dll
-
-// Script to force other VFO of radio to same mode and frequency as currently selected VFO 
+// Script to force other VFO of radio to same mode and frequency as currently selected VFO
 // Works for all supported operating techniques
 // Does not try to enforce mode if not Phone or CW.
 // By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2020-06-15
@@ -9,30 +6,27 @@
 // Implemented in DXLog as Ctrl-F4
 
 using IOComm;
+using NAudio.Midi;
 
 namespace DXLog.net
 {
-    public class EqualizeRadio : ScriptClass
+    public class EqualizeRadio : IScriptClass
     {
-        public void Initialize(FrmMain main) 
+        public void Initialize(FrmMain mainForm)
         {
-            Main(main, main.ContestDataProvider, main.COMMainProvider);
+            Main(mainForm, mainForm.ContestDataProvider, mainForm.COMMainProvider, null);
         }
 
         public void Deinitialize() {}
 
-        public void Main(FrmMain main, ContestData cdata, COMMain comMain)
+        public void Main(FrmMain mainForm, ContestData cdata, COMMain comMain, MidiEvent midiEvent)
         {
-            double frequency;
-            int focusedradio, vfo;
-            string mode, othervfo;
-
-            focusedradio = cdata.FocusedRadio; // 1 or 2
-            vfo = cdata.Radios[focusedradio].ActiveVFO; // 0 = VFO A, 1 = VFO B
-            mode = cdata.FocusedRadioActiveMode; 
-            frequency = cdata.Radios[focusedradio].Freq[vfo];
-            othervfo = vfo == 0 ? "B" : "A";
-            main.SetCATFrequency(focusedradio, othervfo, frequency);
+            var focusedRadio = cdata.FocusedRadio; // 1 or 2
+            var vfo = cdata.Radios[focusedRadio].ActiveVFO; // 0 = VFO A, 1 = VFO B
+            var mode = cdata.FocusedRadioActiveMode;
+            var frequency = cdata.Radios[focusedRadio].Freq[vfo];
+            var otherVfo = vfo == 0 ? "B" : "A";
+            mainForm.SetCATFrequency(focusedRadio, otherVfo, frequency);
 
             switch (mode)
             {
@@ -42,7 +36,7 @@ namespace DXLog.net
                 case "AM":
                 case "FM":
                 case "CW":
-                    main.SetCATMode(focusedradio, othervfo, mode, false);
+                    mainForm.SetCATMode(focusedRadio, otherVfo, mode, false);
                     break;
                 default:
                     break;

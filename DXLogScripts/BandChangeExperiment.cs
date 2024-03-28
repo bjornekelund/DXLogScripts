@@ -1,33 +1,36 @@
-//INCLUDE_ASSEMBLY System.dll
-//INCLUDE_ASSEMBLY System.Windows.Forms.dll
-using System;
 using IOComm;
+using NAudio.Midi;
 
 namespace DXLog.net
 {
-    public class AcomBandChange : ScriptClass
+    public class AcomBandChange : IScriptClass
     {
-        ContestData cdata;
-        FrmMain mainForm;
+        ContestData _cdata;
+        private FrmMain _mainForm;
+
+        public AcomBandChange(ContestData cdata)
+        {
+            _cdata = cdata;
+        }
 
         public void Initialize(FrmMain main)
         {
-            cdata = main.ContestDataProvider;
-            mainForm = main;
-            cdata.ActiveRadioBandChanged += new ContestData.ActiveRadioBandChange(HandleBandChange);
-            mainForm.SetMainStatusText("script started " + cdata);
+            _cdata = main.ContestDataProvider;
+            _mainForm = main;
+            _cdata.ActiveRadioBandChanged += new ContestData.ActiveRadioBandChange(HandleBandChange);
+            _mainForm.SetMainStatusText("script started " + main.ContestDataProvider);
         }
 
         public void Deinitialize() { }
 
-        public void Main(FrmMain main, ContestData cdata, COMMain comMain)
+        public void Main(FrmMain mainForm, ContestData cdata, COMMain comMain, MidiEvent midiEvent)
         {
             HandleBandChange(mainForm.ContestDataProvider.FocusedRadio);
         }
 
-        private void HandleBandChange(int RadioNumber)
+        private void HandleBandChange(int radioNumber)
         {
-            mainForm.SetMainStatusText("HandleBandChange Radio" + RadioNumber.ToString());
+            _mainForm.SetMainStatusText("HandleBandChange Radio" + radioNumber);
         }
 
     }

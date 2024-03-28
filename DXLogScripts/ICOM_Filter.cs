@@ -1,54 +1,52 @@
-//INCLUDE_ASSEMBLY System.dll
-//INCLUDE_ASSEMBLY System.Windows.Forms.dll
-
-// ICOM 7610 Filter cycling. Typically mapped to Alt-' for 
-// muscle memory compatibility with N1MM. 
+// ICOM 7610 Filter cycling. Typically mapped to Alt-' for
+// muscle memory compatibility with N1MM.
 // By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2019-07-08
 // Update 2022-10-13
 
 using System;
 using IOComm;
+using NAudio.Midi;
 
 namespace DXLog.net
 {
-    public class IcomFilter : ScriptClass
+    public class IcomFilter : IScriptClass
     {
         readonly bool Debug = false;
 
         int currentFilter;
 
-        // Executes at DXLog.net start 
+        // Executes at DXLog.net start
         public void Initialize(FrmMain main)
         {
             // Choose and set the "middle" filter at start up
-            currentFilter = 2; 
+            currentFilter = 2;
             SetIcomFilter(currentFilter, main);
         }
 
         // Executes as DXLog.net close down
-        public void Deinitialize() { } 
+        public void Deinitialize() { }
 
-        // Step through filters, Main is mapped to a key, typically not a shifted 
+        // Step through filters, Main is mapped to a key, typically not a shifted
         // key to allow rapid multiple presses
         // The value of currentfilter steps through 1,2,3,1,2,3,1...
-        public void Main(FrmMain main, ContestData cdata, COMMain comMain)
+        public void Main(FrmMain mainForm, ContestData cdata, COMMain comMain, MidiEvent midiEvent)
         {
             currentFilter = (currentFilter % 3) + 1;
-            SetIcomFilter(currentFilter, main);
+            SetIcomFilter(currentFilter, mainForm);
         }
 
         private void SetIcomFilter(int filter, FrmMain main)
         {
             byte mode;
-            bool modeIsSO2V = main.ContestDataProvider.OPTechnique == ContestData.Technique.SO2V;
-            int focusedRadio = main.ContestDataProvider.FocusedRadio;
+            var modeIsSO2V = main.ContestDataProvider.OPTechnique == ContestData.Technique.SO2V;
+            var focusedRadio = main.ContestDataProvider.FocusedRadio;
 
             // Physical radio is #1 in SO2V, otherwised the focused radio
-            int physicalRadio = modeIsSO2V ? 1 : focusedRadio;
-            CATCommon radio = main.COMMainProvider.RadioObject(physicalRadio);
+            var physicalRadio = modeIsSO2V ? 1 : focusedRadio;
+            var radio = main.COMMainProvider.RadioObject(physicalRadio);
 
             // Act on currently selected VFO. In SO2V, the selected "radio" defines which VFO
-            byte vfo = (byte)(((focusedRadio == 2) && modeIsSO2V) ? 0x01 : 0x00);
+            var vfo = (byte)(focusedRadio == 2 && modeIsSO2V ? 0x01 : 0x00);
 
             // If there is no radio or if it is not ICOM, do nothing
             if (radio == null || !radio.IsICOM())
@@ -56,7 +54,7 @@ namespace DXLog.net
 
             // The set filter CAT command requires mode information
             // Exits and does nothing if current mode is not supported
-            switch ((vfo == 0) ? radio.VFOAMode : radio.VFOBMode)
+            switch (vfo == 0 ? radio.VFOAMode : radio.VFOBMode)
             {
                 case "LSB":
                     mode = 0x00;
@@ -81,20 +79,20 @@ namespace DXLog.net
             }
 
             // Always disable APF when switching filter
-            byte[] IcomDisableAPF = { 0x16, 0x32, 0x00 };
-            radio.SendCustomCommand(IcomDisableAPF);
+            byte[] icomDisableAPF = { 0x16, 0x32, 0x00 };
+            radio.SendCustomCommand(icomDisableAPF);
 
             // Switch filter
-            byte[] IcomSetModeFilter = { 0x26, vfo, mode, 0x00, (byte)filter };
-            radio.SendCustomCommand(IcomSetModeFilter);
+            byte[] icomSetModeFilter = { 0x26, vfo, mode, 0x00, (byte)filter };
+            radio.SendCustomCommand(icomSetModeFilter);
 
             if (Debug)
             {
-                main.SetMainStatusText(String.Format("IcomFilter: VFO {0} changed to FIL{1}. CI-V command: [{2}]. ", (vfo == 0) ? "A" : "B", filter, BitConverter.ToString(IcomSetModeFilter)));
+                main.SetMainStatusText($"IcomFilter: VFO {(vfo == 0 ? "A" : "B")} changed to FIL{filter}. CI-V command: [{BitConverter.ToString(icomSetModeFilter)}]. ");
             }
             else
             {
-                main.SetMainStatusText(String.Format("VFO {0} changed to FIL{1}.", (vfo == 0) ? "A" : "B", filter));
+                main.SetMainStatusText($"VFO {(vfo == 0 ? "A" : "B")} changed to FIL{filter}.");
             }
         }
     }

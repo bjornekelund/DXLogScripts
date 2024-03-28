@@ -1,16 +1,14 @@
-//INCLUDE_ASSEMBLY System.dll
-//INCLUDE_ASSEMBLY System.Windows.Forms.dll
-
-// Keyboard PTT experiment by Bjorn Ekelund SM7IUN sm7iun@ssa.se 
-// Keyboard PTT mapped to Oem5 key. 
+// Keyboard PTT experiment by Bjorn Ekelund SM7IUN sm7iun@ssa.se
+// Keyboard PTT mapped to Oem5 key.
 // Updated 2022-12-04
 
 using System.Windows.Forms;
 using IOComm;
+using NAudio.Midi;
 
 namespace DXLog.net
 {
-    public class KeyPTT : ScriptClass
+    public class KeyPTT : IScriptClass
     {
         FrmMain main;
         bool Sending = false;
@@ -29,7 +27,7 @@ namespace DXLog.net
 
         public void Deinitialize() { }
 
-        public void Main(FrmMain m, ContestData c, COMMain a) { }
+        public void Main(FrmMain mainForm, ContestData cdata, COMMain comMain, MidiEvent midiEvent) { }
 
         private void HandleKeyPress(object sender, KeyEventArgs e)
         {
@@ -41,7 +39,7 @@ namespace DXLog.net
                 Sending = true;
                 if (verbose)
                 {
-                    main.SetMainStatusText(string.Format("Transmitting on radio {0}.", main.ContestDataProvider.TXOnRadio));
+                    main.SetMainStatusText($"Transmitting on radio {main.ContestDataProvider.TXOnRadio}.");
                 }
             }
         }

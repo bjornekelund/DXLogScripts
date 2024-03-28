@@ -1,27 +1,23 @@
-//INCLUDE_ASSEMBLY System.dll
-//INCLUDE_ASSEMBLY System.Windows.Forms.dll
-
-// Experimental 
+// Experimental
 
 using IOComm;
+using NAudio.Midi;
 
 namespace DXLog.net
 {
-    public class Callsign : ScriptClass
+    public class Callsign : IScriptClass
     {
-        int currentAntenna;
-
-        // Executes at DXLog.net start 
+        // Executes at DXLog.net start
         public void Initialize(FrmMain main) { }
 
         // Executes as DXLog.net close down
         public void Deinitialize() { }
 
         // Display entered callsign in status bar
-        public void Main(FrmMain main, ContestData cdata, COMMain comMain)
+        public void Main(FrmMain mainForm, ContestData cdata, COMMain comMain, MidiEvent midiEvent)
         {
-            string callsign = main.CurrentNewEntryLine.ActualQSO.Callsign;
-            main.SetMainStatusText(string.Format("Current callsign is {0}", callsign));
+            var callsign = mainForm.CurrentNewEntryLine.ActualQSO.Callsign;
+            mainForm.SetMainStatusText($"Current callsign is {callsign}");
         }
     }
 }

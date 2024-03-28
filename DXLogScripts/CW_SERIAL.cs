@@ -1,42 +1,40 @@
-//INCLUDE_ASSEMBLY System.dll
-//INCLUDE_ASSEMBLY System.Windows.Forms.dll
-
 // CW transmission script
 
 using System;
 using IOComm;
+using NAudio.Midi;
 
 namespace DXLog.net
 {
-    public class CW_SERIAL : ScriptClass
+    public class CW_SERIAL : IScriptClass
     {
         const bool Debug = true;
 
-        // Executes at DXLog.net start 
+        // Executes at DXLog.net start
         public void Initialize(FrmMain main) { }
 
         // Executes as DXLog.net close down
-        public void Deinitialize() { } 
+        public void Deinitialize() { }
 
-        public void Main(FrmMain main, ContestData cdata, COMMain comMain)
+        public void Main(FrmMain mainForm, ContestData cdata, COMMain comMain, MidiEvent midiEvent)
         {
-            UCQSO qso = main.panelQSO.GetLogEntryLine(main.ContestDataProvider.FocusedRadio + 9);
-            int qsonumber = qso.ActualQSO.Nr;
+            var qso = mainForm.panelQSO.GetLogEntryLine(mainForm.ContestDataProvider.FocusedRadio + 9);
+            var qsonumber = qso.ActualQSO.Nr;
             //int qsonumber = 23;
 
-            string message = main.CWAbbrev(qsonumber.ToString("000"));
+            var message = mainForm.CWAbbrev(qsonumber.ToString("000"));
 
-            SendString(message, main);
+            SendString(message, mainForm);
         }
 
         private void SendString(string message, FrmMain main)
         {
-            bool modeIsSO2V = main.ContestDataProvider.OPTechnique == ContestData.Technique.SO2V;
-            int focusedRadio = main.ContestDataProvider.FocusedRadio;
+            var modeIsSO2V = main.ContestDataProvider.OPTechnique == ContestData.Technique.SO2V;
+            var focusedRadio = main.ContestDataProvider.FocusedRadio;
 
             // Physical radio is #1 in SO2V, otherwised the focused radio
-            int physicalRadio = modeIsSO2V ? 1 : focusedRadio;
-            CATCommon radio = main.COMMainProvider.RadioObject(physicalRadio);
+            var physicalRadio = modeIsSO2V ? 1 : focusedRadio;
+            var radio = main.COMMainProvider.RadioObject(physicalRadio);
             //CATCommon radio = null;
             // If there is no radio or if it is not ICOM, do nothing
             //if (radio != null && radio.IsICOM())
@@ -60,13 +58,12 @@ namespace DXLog.net
             }
             else
             {
-                string command = "KY" + message + ";";
-                if (radio != null)
-                    radio.SendCustomCommand(command);
+                var command = "KY" + message + ";";
+                radio?.SendCustomCommand(command);
 
                 if (Debug)
                 {
-                    main.SetMainStatusText("ICOM_SERIAL: CAT command: [{" + command + "}]. ");
+                    main.SetMainStatusText("ICOM_SERIAL: CAT command: [{" + command + "}].");
                 }
             }
         }
