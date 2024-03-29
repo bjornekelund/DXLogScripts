@@ -1,5 +1,6 @@
 // Elecraft K3/K4 RX antenna toggling.
 // By SM7IUN & K1XM 2022-10-13
+// Updated by James M1DST 2024-03-28
 
 using IOComm;
 using NAudio.Midi;

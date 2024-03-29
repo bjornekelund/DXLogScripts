@@ -1,6 +1,6 @@
 // Keyboard PTT experiment by Bjorn Ekelund SM7IUN sm7iun@ssa.se
 // Keyboard PTT mapped to Oem5 key.
-// Updated 2022-12-04
+// Updated by James M1DST 2024-03-28
 
 using System.Windows.Forms;
 using IOComm;

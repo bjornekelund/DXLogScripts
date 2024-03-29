@@ -1,5 +1,5 @@
 // Keyboard PTT experiment by Bjorn Ekelund SM7IUN sm7iun@ssa.se
-// Updated 2024-03-25
+// Updated by James M1DST 2024-03-28
 
 using IOComm;
 using NAudio.Midi;

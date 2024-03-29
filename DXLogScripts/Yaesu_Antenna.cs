@@ -1,5 +1,6 @@
 // Experimental antenna cycling script for Yaesu FTDX101D.
 // By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2020-04-18
+// Updated by James M1DST 2024-03-28
 
 using IOComm;
 using NAudio.Midi;

@@ -3,6 +3,7 @@
 // Works for all operating scenarios including SO2V and for Kenwood, Yaesu,
 // ICOM, Flex, etc. in any combination.
 // By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2022-11-17
+// Updated by James M1DST 2024-03-28
 
 using CWKeyer;
 using IOComm;

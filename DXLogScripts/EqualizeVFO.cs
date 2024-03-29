@@ -2,7 +2,7 @@
 // Works for all supported operating techniques
 // Does not try to enforce mode if not Phone or CW.
 // By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2020-06-15
-// Updated 2022-10-13
+// Updated by James M1DST 2024-03-28
 // Implemented in DXLog as Ctrl-F4
 
 using IOComm;
