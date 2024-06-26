@@ -1,9 +1,6 @@
 // Experimental script to send text CAT command to focused radio
 // By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2024-06-03
 
-//using IOComm;
-//using NAudio.Midi;
-
 namespace DXLog.net
 {
     public class SendCAT : IScriptClass
@@ -30,7 +27,7 @@ namespace DXLog.net
             if (main.COMMainProvider.RadioObject(physicalRadio) != null)
             {
                 main.COMMainProvider.RadioObject(physicalRadio).SendCustomCommand(catCommand);
-                main.SetMainStatusText($"Sent command {catCommand} to radio #{physicalRadio}.");
+                main.SetMainStatusText($"Sent command \"{catCommand}\" to radio #{physicalRadio}.");
             }
         }
     }
