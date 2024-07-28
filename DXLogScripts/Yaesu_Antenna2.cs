@@ -1,4 +1,5 @@
-// Experimental antenna cycling script for Yaesu FTDX101D.
+// Experimental antenna switching script for Yaesu FTDX101D.
+// Toggles between main and receive antenna on currently active receiver
 // By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2022-11-09
 // Updated by James M1DST 2024-03-28
 
@@ -40,14 +41,13 @@ namespace DXLog.net
             var physicalRadio = modeIsSO2V ? 1 : focusedRadio;
 
             // Act on currently selected VFO unless SO2V where the selected "radio" defines which VFO
-            var avfo = ((focusedRadio == 2) && modeIsSO2V) ? "B" : main.ContestDataProvider.FocusedRadioActiveVFO;
-            var vfo = avfo == "A" ? "0" : "1";
-            var catCommand = "AN" + vfo + (rxAnt ? "3" : "1") + ";";
+            var activeVFO = ((focusedRadio == 2) && modeIsSO2V) ? "B" : main.ContestDataProvider.FocusedRadioActiveVFO;
+            var vfoDigit = activeVFO == "A" ? "0" : "1";
 
             if (main.COMMainProvider.RadioObject(physicalRadio) != null)
             {
-                main.COMMainProvider.RadioObject(physicalRadio).SendCustomCommand(catCommand);
-                main.SetMainStatusText($"{(vfo == "0" ? "Main" : "Sub")} antenna switched to #{(_rxAntenna ? 3 : 1)}.");
+                main.COMMainProvider.RadioObject(physicalRadio).SendCustomCommand("AN" + vfoDigit + (rxAnt ? "3" : "1") + ";");
+                main.SetMainStatusText($"{(vfoDigit == "0" ? "Main" : "Sub")} antenna switched to #{(_rxAntenna ? 3 : 1)}.");
             }
         }
     }

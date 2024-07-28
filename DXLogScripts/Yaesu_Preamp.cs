@@ -1,38 +1,38 @@
 // Experimental antenna cycling script for Yaesu FTDX101D.
-// Steps through antennas for currently selected receiver
-// By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2020-04-18
-// Updated by James M1DST 2024-03-28
+// Steps through antennas for currently focused receiver
+// By Bjorn Ekelund SM7IUN sm7iun@ssa.se 2024-07-28
 
 using IOComm;
 using NAudio.Midi;
 
 namespace DXLog.net
 {
-    public class YaesuAntenna : IScriptClass
+    public class YaesuPreamp: IScriptClass
     {
-        private int _currentAntenna;
+        private int _currentPreamp;
+        public string[] _currentState = new string[] {"IPO", "AMP 1", "AMP 2"};
 
         // Executes at DXLog.net start
         public void Initialize(FrmMain main)
         {
-            // Choose and set the first antenna at start up
-            _currentAntenna = 1;
-            SetYaesuAntenna(_currentAntenna, main);
+            // Choose and set IPO at start up
+            _currentPreamp = 1;
+            SetYaesuPreamp(_currentPreamp, main);
         }
 
         // Executes as DXLog.net close down
         public void Deinitialize() { }
 
-        // Step through Antennas, Main is mapped to a key, typically not a shifted
+        // Step through preamp settings, Main is mapped to a key, typically not a shifted
         // key to allow rapid multiple presses
-        // The value of currentAntenna steps through 1,2,3,1,2,3,1...
+        // The value of _currentPreamp steps through 0, 1, 2, 0, 1, 2
         public void Main(FrmMain mainForm, ContestData cdata, COMMain comMain, MidiEvent midiEvent)
         {
-            _currentAntenna = (_currentAntenna % 3) + 1;
-            SetYaesuAntenna(_currentAntenna, mainForm);
+            _currentPreamp = (_currentPreamp + 1 ) % 3;
+            SetYaesuPreamp(_currentPreamp, mainForm);
         }
 
-        private void SetYaesuAntenna(int antenna, FrmMain main)
+        private void SetYaesuPreamp(int preamp, FrmMain main)
         {
             var modeIsSO2V = main.ContestDataProvider.OPTechnique == ContestData.Technique.SO2V;
             var focusedRadio = main.ContestDataProvider.FocusedRadio;
@@ -46,8 +46,8 @@ namespace DXLog.net
 
             if (main.COMMainProvider.RadioObject(physicalRadio) != null)
             {
-                main.COMMainProvider.RadioObject(physicalRadio).SendCustomCommand("AN" + vfoDigit + antenna + ";");
-                main.SetMainStatusText($"{(vfoDigit == "0" ? "Main" : "Sub")} antenna switched to #{_currentAntenna}.");
+                main.COMMainProvider.RadioObject(physicalRadio).SendCustomCommand("PA" + vfoDigit + preamp + ";");
+                main.SetMainStatusText($"{(vfoDigit == "0" ? "Main" : "Sub")} receiver set to {_currentState[_currentPreamp]}.");
             }
         }
     }
