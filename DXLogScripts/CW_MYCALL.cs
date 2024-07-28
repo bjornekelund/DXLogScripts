@@ -41,14 +41,14 @@ namespace DXLog.net
 
                     for (var i = 1; i < message.Length + 1; i++)
                     {
-                        bytes[i] = (byte)(message[i]);
+                        bytes[i] = (byte)message[i];
                     }
 
                     radio.SendCustomCommand(bytes);
 
                     if (Debug)
                     {
-                        main.SetMainStatusText($"ICOM_SERIAL: CI-V command: [{BitConverter.ToString(bytes)}].");
+                        main.SetMainStatusText($"CI-V command: [{BitConverter.ToString(bytes)}].");
                     }
                 }
                 else
@@ -58,10 +58,9 @@ namespace DXLog.net
 
                     if (Debug)
                     {
-                        main.SetMainStatusText($"ICOM_SERIAL: CAT command: [{command}].");
+                        main.SetMainStatusText($"CAT command: [{command}].");
                     }
                 }
-
             }
         }
     }
