@@ -8,8 +8,6 @@ namespace DXLog.net
 {
     public class KeyPTTtoggle : IScriptClass
     {
-        bool Sending = false;
-
         public void Initialize(FrmMain main) {}
 
         public void Deinitialize() { }
@@ -17,20 +15,20 @@ namespace DXLog.net
         public void Main(FrmMain mainForm, ContestData cdata, COMMain comMain, MidiEvent midiEvent)
         {
             cdata.TXOnRadio = cdata.FocusedRadio;
-            if (!Sending)
+
+            if (cdata.Radios[cdata.TXOnRadio].TXStatus)
             {
                 mainForm.EscStopKeying();
-                Sending = true;
-                mainForm.HandleTXRequestChange(Sending, false, 0, false);
-                mainForm.SetMainStatusText($"Transmitting on radio {cdata.TXOnRadio}.");
-                mainForm.COMMainProvider.SetPTTOn(cdata.TXOnRadio, false);
+                mainForm.HandleTXRequestChange(false, false, 0, false);
+                mainForm.SetMainStatusText($"PTT off on radio {cdata.TXOnRadio}");
+                mainForm.COMMainProvider.SetPTTOff(cdata.FocusedRadio);
             }
             else
             {
-                Sending = false;
-                mainForm.HandleTXRequestChange(Sending, false, 0, false);
-                mainForm.SetMainStatusText($"PTT off on radio {cdata.TXOnRadio}");
-                mainForm.COMMainProvider.SetPTTOff(cdata.FocusedRadio);
+                mainForm.EscStopKeying();
+                mainForm.HandleTXRequestChange(true, false, 0, false);
+                mainForm.SetMainStatusText($"Transmitting on radio {cdata.TXOnRadio}.");
+                mainForm.COMMainProvider.SetPTTOn(cdata.TXOnRadio, false);
             }
         }
     }
