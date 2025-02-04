@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="Callsign.cs" />
     <Compile Include="BandChangeExperiment.cs" />
+    <Compile Include="Yaesu_Attenuator.cs" />
     <Compile Include="Yaesu_Preamp.cs" />
     <Compile Include="Yaesu_Antenna2.cs" />
     <Compile Include="Yaesu_Antenna.cs" />
