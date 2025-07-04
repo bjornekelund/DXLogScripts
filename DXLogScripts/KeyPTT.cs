@@ -14,18 +14,23 @@ namespace DXLog.net
         bool Sending = false;
 
         // PTT key
-        readonly Keys PTTkey = Keys.Oem5;
+        readonly Keys PTTkey = Keys.ControlKey;
+
         // Controls whether the script displays something in the status bar
         readonly bool verbose = true;
 
         public void Initialize(FrmMain mainForm)
         {
             main = mainForm;
-            main.KeyDown += new KeyEventHandler(HandleKeyPress);
-            main.KeyUp += new KeyEventHandler(HandleKeyRelease);
+            main.KeyDown += HandleKeyPress;
+            main.KeyUp += HandleKeyRelease;
         }
 
-        public void Deinitialize() { }
+        public void Deinitialize() 
+        {
+            main.KeyDown -= HandleKeyPress;
+            main.KeyUp -= HandleKeyRelease;
+        }
 
         public void Main(FrmMain mainForm, ContestData cdata, COMMain comMain, MidiEvent midiEvent) { }
 
@@ -35,7 +40,9 @@ namespace DXLog.net
             {
                 main.EscStopKeying();
                 main.ContestDataProvider.TXOnRadio = main.ContestDataProvider.FocusedRadio;
+                main.HandleTXRequestChange(true, false, 0, false);
                 main.COMMainProvider.SetPTTOn(main.ContestDataProvider.TXOnRadio, false);
+
                 Sending = true;
                 if (verbose)
                 {
